@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index page</title>
+</head>
+<body>
+    <h1>List of questions:</h1>
+    {% for question in latest_question_list %}
+        <a href="{% url 'polls:details' question.id%}"><h2>{{ question }}</h2></a>
+        <!-- {% for choice in question.choice_set.all %}
+            <h3>{{ choice.choice_text }}</h3>
+        {% endfor %} -->
+    {% endfor %}
+    <div>
+    <a href="{% url 'polls:add_question' %}"><button type="button">Add Question</button></a>
+    <a href="{% url 'Descriptions:home' %}"><button type="button">Go to Descriptions app</button></a>
+    <a href="{% url 'Descriptions:details_des' %}"><button type="button">Details of Descriptions</button></a>
+    <a href="{% url 'polls:login_page' %}"><button type="button">Login</button></a>
+    <a href="{% url 'polls:add_user' %}"><button type="button">Register</button></a>
+</div>
+</body>
+</html>

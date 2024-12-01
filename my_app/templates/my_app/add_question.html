@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add question</title>
+</head>
+<body>
+    <h1>Add the question to the database</h1>
+    {% if error_message %}
+        <h3>{{ error_message }}</h3>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="question_text">Question:</label>
+        <input type="text" id="question_text" name="question_text" required>
+        <div>
+            <label for="choice_text">Choice 1:</label>
+            <input type="text" id="choice_text" name="choice_text" required>
+            <label for="choice_text">Choice 2:</label>
+            <input type="text" id="choice_text" name="choice_text" required>
+            <label for="choice_text">Choice 3:</label>
+            <input type="text" id="choice_text" name="choice_text" required>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

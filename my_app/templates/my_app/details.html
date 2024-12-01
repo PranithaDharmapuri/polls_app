@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details page</title>
+    <style>
+        button{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <script src=
+        "https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>   
+    <form action="{% url 'polls:vote' question.id%}" method="post">
+        {% csrf_token %}
+        <h1>{{ question }}</h1>
+            {% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">{{ choice.choice_text }}
+            {% endfor %}
+        <br>
+        <br>
+        <button type="submit">Vote</button>
+        <button type="button" onclick="delete_question()">Delete Question</button>
+        <br><br>
+        <a href="{% url 'polls:index' %}"><button type="button">Home</button></a>
+        <a href="{% url 'polls:results' question.id %}"><button type="button">To Results</button></a>
+        <a href="{% url 'polls:update_question' question_id=question.id %}"><button type="button">Edit Question</button></a>
+    </form>
+    <script>
+        function delete_question(){
+            alert("We're deleting this question")
+
+            let formdata={}
+            formdata['csrfmiddlewaretoken']="{{csrf_token}}"
+
+            $.ajax({
+                url:"{% url 'polls:delete_question' question.id %}",
+                type:"POST",
+                data:formdata,
+                success:function(response){
+                    window.location="{% url 'polls:index' %}"
+                }
+            })
+        }
+    </script>
+</body>
+</html>
