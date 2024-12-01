@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uopdate question</title>
+</head>
+<body>
+    <div>
+    <form action="{% url 'polls:update_question' question.id %}" method="post">
+        <h1>Edit your question</h1>
+        {% csrf_token %}
+        <label for="question_text">Question</label>
+        <input type="text" name="question_text" value="{{question.question_text}}" required>
+        {% for choice in question.choice_set.all %}
+            <label for="choice_{{choice.id}}">Choice {{  forloop.counter }}:</label>
+            <input type="text" name="choice_{{choice.id}}" id="choice_{{choice.id}}" value="{{choice.choice_text}}" required>
+            {% endfor %}
+        <button type="submit">Update</button>
+    </form>
+    </div>
+    <div>
+        <a href="{% url 'polls:index' %}"><button type="button">Home</button></a>
+    </div>
+</body>
+</html>
